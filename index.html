@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espresso Co. — Brewed for the Pace of the City</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --espresso: #2C1810;
+    --espresso-deep: #1A0E08;
+    --black: #0E0E0E;
+    --bronze: #B8860B;
+    --bronze-light: #D4A54A;
+    --cream: #F5F0E8;
+    --cream-warm: #EDE5D8;
+    --taupe: #8B7D6B;
+    --wood: #5C4A3A;
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth: cubic-bezier(0.37, 0, 0.63, 1);
+
+    --text-hero: clamp(52px, 10vw, 150px);
+    --text-section: clamp(32px, 5vw, 68px);
+    --text-sub: clamp(20px, 2.5vw, 36px);
+    --text-body-lg: clamp(14px, 1.3vw, 18px);
+    --text-body: clamp(13px, 1.1vw, 15px);
+    --text-caption: clamp(9px, 0.85vw, 11px);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* GRAIN */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* === NAV === */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 28px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mix-blend-mode: difference;
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+  }
+
+  .nav-logo span {
+    font-weight: 300;
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 400;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+  }
+
+  .nav-links a:hover { opacity: 1; }
+
+  /* === HERO === */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 56px 100px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 70% at 70% 30%, rgba(184,134,11,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 30% 60%, rgba(44,24,16,0.4) 0%, transparent 60%),
+      radial-gradient(circle at 50% 0%, rgba(245,240,232,0.03) 0%, transparent 40%),
+      linear-gradient(180deg, var(--espresso-deep) 0%, var(--black) 100%);
+  }
+
+  /* Morning light beam */
+  .hero-light {
+    position: absolute;
+    top: 0;
+    right: 20%;
+    width: 400px;
+    height: 100%;
+    background: linear-gradient(180deg,
+      rgba(245,240,232,0.06) 0%,
+      rgba(184,134,11,0.04) 30%,
+      transparent 70%);
+    transform: rotate(-5deg) skewX(-5deg);
+    filter: blur(60px);
+    animation: morningLight 8s var(--ease-smooth) infinite;
+  }
+
+  @keyframes morningLight {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* Steam */
+  .steam {
+    position: absolute;
+    bottom: 30%;
+    width: 80px;
+    height: 200px;
+    background: radial-gradient(ellipse, rgba(245,240,232,0.04) 0%, transparent 70%);
+    filter: blur(20px);
+    animation: steamRise 6s var(--ease-smooth) infinite;
+  }
+
+  @keyframes steamRise {
+    0% { transform: translateY(0) scaleX(1); opacity: 0; }
+    20% { opacity: 0.4; }
+    80% { opacity: 0; }
+    100% { transform: translateY(-150px) scaleX(1.5); opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+  }
+
+  .hero-tag {
+    font-size: var(--text-caption);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: revealUp 0.8s var(--ease-expo) 0.4s forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    margin-bottom: 36px;
+    opacity: 0;
+    transform: translateY(60px);
+    animation: revealUp 1s var(--ease-expo) 0.6s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--bronze-light);
+  }
+
+  .hero-sub {
+    font-size: var(--text-body-lg);
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 480px;
+    color: rgba(245,240,232,0.5);
+    margin-bottom: 52px;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: revealUp 0.8s var(--ease-expo) 0.9s forwards;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: revealUp 0.8s var(--ease-expo) 1.1s forwards;
+  }
+
+  @keyframes revealUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === BUTTONS === */
+  .btn-warm {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 44px;
+    background: var(--bronze);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s var(--ease-expo);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-warm::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--bronze-light);
+    transform: translateX(-100%);
+    transition: transform 0.5s var(--ease-expo);
+  }
+
+  .btn-warm:hover::before { transform: translateX(0); }
+  .btn-warm span { position: relative; z-index: 1; }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 44px;
+    background: transparent;
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(245,240,232,0.15);
+    cursor: pointer;
+    transition: all 0.4s var(--ease-expo);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--bronze);
+    color: var(--bronze-light);
+  }
+
+  /* === EXPERIENCE STRIP === */
+  .experience {
+    padding: 100px 56px;
+    border-top: 1px solid rgba(184,134,11,0.08);
+  }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: rgba(184,134,11,0.06);
+    margin-top: 48px;
+  }
+
+  .exp-tile {
+    background: var(--black);
+    padding: 40px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s var(--ease-expo);
+    position: relative;
+  }
+
+  .exp-tile::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; right: 50%;
+    height: 1px;
+    background: var(--bronze);
+    transition: all 0.5s var(--ease-expo);
+  }
+
+  .exp-tile:hover { background: rgba(184,134,11,0.03); }
+  .exp-tile:hover::after { left: 20%; right: 20%; }
+
+  .exp-tile-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+  }
+
+  .exp-tile:hover .exp-tile-icon { opacity: 1; }
+
+  .exp-tile-name {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  .exp-tile-sub {
+    font-size: 10px;
+    color: var(--taupe);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* === STORY === */
+  .story {
+    padding: 160px 56px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .story-headline {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5.5vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .story-headline em {
+    font-style: italic;
+    font-weight: 500;
+    display: block;
+    color: var(--bronze-light);
+  }
+
+  .story-line {
+    width: 48px;
+    height: 1px;
+    background: var(--bronze);
+    margin: 32px 0;
+  }
+
+  .story-right p {
+    font-size: var(--text-body-lg);
+    line-height: 1.9;
+    color: rgba(245,240,232,0.5);
+    margin-bottom: 20px;
+  }
+
+  /* === PRODUCT WORLD === */
+  .products {
+    padding: 120px 56px;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .product-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--espresso-deep);
+  }
+
+  .product-card-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 1.2s var(--ease-expo);
+  }
+
+  .product-card:hover .product-card-bg { transform: scale(1.06); }
+
+  .product-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(14,14,14,0.85) 100%);
+  }
+
+  .product-card-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 36px;
+  }
+
+  .product-card-label {
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 8px;
+  }
+
+  .product-card-name {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    margin-bottom: 8px;
+  }
+
+  .product-card-desc {
+    font-size: 12px;
+    color: rgba(245,240,232,0.4);
+    line-height: 1.6;
+  }
+
+  /* === LIFESTYLE === */
+  .life {
+    padding: 120px 56px;
+    position: relative;
+  }
+
+  .life-scenes {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 350px 350px;
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .life-scene {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .life-scene:first-child { grid-row: 1 / 3; }
+
+  .life-scene-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 1.2s var(--ease-expo);
+  }
+
+  .life-scene:hover .life-scene-bg { transform: scale(1.04); }
+
+  .life-scene-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(14,14,14,0.6) 100%);
+  }
+
+  .life-scene-text {
+    position: absolute;
+    bottom: 28px;
+    left: 28px;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(245,240,232,0.6);
+  }
+
+  /* === RETAIL === */
+  .retail {
+    padding: 120px 56px;
+    text-align: center;
+    border-top: 1px solid rgba(184,134,11,0.06);
+  }
+
+  .retail .section-title {
+    margin: 0 auto 20px;
+    text-align: center;
+  }
+
+  .retail-body {
+    font-size: var(--text-body-lg);
+    color: rgba(245,240,232,0.45);
+    max-width: 500px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+  }
+
+  .retail-items {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+
+  .retail-item {
+    text-align: center;
+  }
+
+  .retail-item-icon {
+    width: 64px;
+    height: 64px;
+    border: 1px solid rgba(184,134,11,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 24px;
+    transition: all 0.4s var(--ease-expo);
+  }
+
+  .retail-item:hover .retail-item-icon {
+    border-color: var(--bronze);
+    background: rgba(184,134,11,0.06);
+  }
+
+  .retail-item-name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cream);
+  }
+
+  /* === OFFICE COFFEE === */
+  .office {
+    padding: 160px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+  }
+
+  .office::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 50% at 70% 50%, rgba(44,24,16,0.3) 0%, transparent 70%);
+  }
+
+  .office-title {
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .office-body {
+    font-size: var(--text-body-lg);
+    color: rgba(245,240,232,0.5);
+    line-height: 1.8;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  /* === COFFEE CLUB === */
+  .club {
+    padding: 120px 56px;
+    border-top: 1px solid rgba(184,134,11,0.06);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .club-perks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .club-perk {
+    padding: 24px;
+    border: 1px solid rgba(184,134,11,0.08);
+    background: rgba(184,134,11,0.02);
+    transition: border-color 0.4s;
+  }
+
+  .club-perk:hover { border-color: rgba(184,134,11,0.2); }
+
+  .club-perk-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--bronze-light);
+    margin-bottom: 6px;
+  }
+
+  .club-perk-desc {
+    font-size: 12px;
+    color: rgba(245,240,232,0.35);
+    line-height: 1.6;
+  }
+
+  .club-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .club-input {
+    padding: 16px 24px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(245,240,232,0.08);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .club-input:focus { border-color: var(--bronze); }
+  .club-input::placeholder { color: rgba(245,240,232,0.2); }
+
+  /* === SHARED === */
+  .section-label {
+    font-size: var(--text-caption);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 48px;
+    max-width: 600px;
+  }
+
+  /* === FOOTER === */
+  footer {
+    padding: 80px 56px 40px;
+    border-top: 1px solid rgba(245,240,232,0.04);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+  }
+
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+
+  .footer-brand span {
+    font-style: italic;
+    font-weight: 300;
+    opacity: 0.6;
+  }
+
+  .footer-tagline {
+    font-size: 13px;
+    color: rgba(245,240,232,0.25);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .footer-col-title {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 20px;
+  }
+
+  .footer-col a {
+    display: block;
+    color: rgba(245,240,232,0.35);
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 12px;
+    transition: color 0.3s;
+  }
+
+  .footer-col a:hover { color: var(--cream); }
+
+  .footer-bottom {
+    padding: 32px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(245,240,232,0.03);
+    font-size: 11px;
+    color: rgba(245,240,232,0.15);
+  }
+
+  .footer-bottom a {
+    color: rgba(245,240,232,0.15);
+    text-decoration: none;
+  }
+
+  /* === SCROLL REVEALS === */
+  .reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s var(--ease-expo), transform 0.8s var(--ease-expo);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+  .reveal-d4 { transition-delay: 0.4s; }
+  .reveal-d5 { transition-delay: 0.5s; }
+
+  /* === MOBILE === */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+
+    .hero { padding: 0 24px 60px; }
+    .hero h1 { font-size: clamp(40px, 13vw, 72px); }
+
+    .experience { padding: 60px 24px; }
+    .exp-grid { grid-template-columns: repeat(3, 1fr); }
+
+    .story {
+      grid-template-columns: 1fr;
+      padding: 80px 24px;
+      gap: 40px;
+    }
+
+    .products { padding: 80px 24px; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+
+    .life { padding: 80px 24px; }
+    .life-scenes {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+    }
+    .life-scene:first-child { grid-row: auto; }
+    .life-scene { min-height: 200px; }
+
+    .retail { padding: 80px 24px; }
+
+    .office {
+      grid-template-columns: 1fr;
+      padding: 80px 24px;
+      gap: 40px;
+    }
+
+    .club {
+      grid-template-columns: 1fr;
+      padding: 80px 24px;
+      gap: 40px;
+    }
+
+    footer {
+      grid-template-columns: 1fr 1fr;
+      padding: 60px 24px 30px;
+    }
+
+    .footer-bottom {
+      padding: 24px;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .exp-grid { grid-template-columns: repeat(2, 1fr); }
+    .products-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Espresso <span>Co.</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#locations">Locations</a></li>
+    <li><a href="#beans">Beans & Retail</a></li>
+    <li><a href="#club">Coffee Club</a></li>
+    <li><a href="#" class="btn-warm" style="padding:10px 28px;font-size:10px;letter-spacing:0.15em;"><span>Order Ahead</span></a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-light"></div>
+
+  <div class="steam" style="left:60%;animation-delay:0s;"></div>
+  <div class="steam" style="left:55%;animation-delay:2s;opacity:0.6;"></div>
+  <div class="steam" style="left:65%;animation-delay:4s;opacity:0.4;"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Espresso · Atmosphere · Refined Energy</div>
+    <h1>Brewed for<br>the <em>pace</em><br>of the city.</h1>
+    <p class="hero-sub">Espresso, atmosphere, and refined energy for mornings, meetings, and moments in between.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-warm"><span>Order Ahead</span></a>
+      <a href="#menu" class="btn-outline">View Menu</a>
+      <a href="#locations" class="btn-outline">Find a Café</a>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE EXPERIENCE -->
+<section class="experience" id="menu">
+  <div class="section-label reveal">The Experience</div>
+  <h2 class="section-title reveal reveal-d1">Every pour, intentional.</h2>
+
+  <div class="exp-grid">
+    <div class="exp-tile reveal reveal-d1">
+      <div class="exp-tile-icon">☕</div>
+      <div class="exp-tile-name">Espresso Ritual</div>
+      <div class="exp-tile-sub">The Foundation</div>
+    </div>
+    <div class="exp-tile reveal reveal-d2">
+      <div class="exp-tile-icon">🧊</div>
+      <div class="exp-tile-name">Cold & Bold</div>
+      <div class="exp-tile-sub">Iced Perfection</div>
+    </div>
+    <div class="exp-tile reveal reveal-d3">
+      <div class="exp-tile-icon">✦</div>
+      <div class="exp-tile-name">Signature Lattes</div>
+      <div class="exp-tile-sub">Our Creations</div>
+    </div>
+    <div class="exp-tile reveal reveal-d3">
+      <div class="exp-tile-icon">🥐</div>
+      <div class="exp-tile-name">Pastries & Pairings</div>
+      <div class="exp-tile-sub">The Complement</div>
+    </div>
+    <div class="exp-tile reveal reveal-d4">
+      <div class="exp-tile-icon">◉</div>
+      <div class="exp-tile-name">Whole Bean</div>
+      <div class="exp-tile-sub">Take It Home</div>
+    </div>
+    <div class="exp-tile reveal reveal-d5">
+      <div class="exp-tile-icon">◈</div>
+      <div class="exp-tile-name">Office Coffee</div>
+      <div class="exp-tile-sub">For Teams</div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND STORY -->
+<section class="story">
+  <div class="reveal">
+    <div class="story-headline">
+      For the people who build
+      <em>before noon.</em>
+    </div>
+    <div class="story-line"></div>
+  </div>
+  <div>
+    <p class="reveal reveal-d1">Espresso Co. is designed for people who move with intention. Morning thinkers. Fast starters. Creative builders. Quiet meetings. Daily rituals.</p>
+    <p class="reveal reveal-d2">Every pour, every surface, every detail is shaped to make coffee feel like part of a refined way of living.</p>
+    <p class="reveal reveal-d3" style="font-family:var(--font-display);font-style:italic;color:var(--bronze-light);font-size:18px;">Ritual meets refinement.</p>
+  </div>
+</section>
+
+<!-- PRODUCT WORLD -->
+<section class="products">
+  <div class="section-label reveal">The Menu</div>
+  <h2 class="section-title reveal reveal-d1">Crafted categories.</h2>
+
+  <div class="products-grid">
+    <div class="product-card reveal reveal-d1">
+      <div class="product-card-bg" style="background:linear-gradient(180deg, #1a1008 0%, #0e0a06 100%);"></div>
+      <div class="product-card-overlay"></div>
+      <div class="product-card-content">
+        <div class="product-card-label">Signature</div>
+        <div class="product-card-name">Morning Essentials</div>
+        <div class="product-card-desc">Espresso, cortado, americano — the core ritual.</div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-d2">
+      <div class="product-card-bg" style="background:linear-gradient(180deg, #12100e 0%, #0a0808 100%);"></div>
+      <div class="product-card-overlay"></div>
+      <div class="product-card-content">
+        <div class="product-card-label">Premium</div>
+        <div class="product-card-name">Signature Espresso</div>
+        <div class="product-card-desc">Single-origin, handcrafted, atmospheric.</div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-d3">
+      <div class="product-card-bg" style="background:linear-gradient(180deg, #0e0d0a 0%, #080706 100%);"></div>
+      <div class="product-card-overlay"></div>
+      <div class="product-card-content">
+        <div class="product-card-label">Iced</div>
+        <div class="product-card-name">Cold & Bold</div>
+        <div class="product-card-desc">Cold brew, iced latte, nitro — city pace energy.</div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-d2">
+      <div class="product-card-bg" style="background:linear-gradient(180deg, #100c08 0%, #0a0806 100%);"></div>
+      <div class="product-card-overlay"></div>
+      <div class="product-card-content">
+        <div class="product-card-label">Seasonal</div>
+        <div class="product-card-name">Seasonal Rituals</div>
+        <div class="product-card-desc">Limited collections that change with the moment.</div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-d3">
+      <div class="product-card-bg" style="background:linear-gradient(180deg, #0f0a06 0%, #080604 100%);"></div>
+      <div class="product-card-overlay"></div>
+      <div class="product-card-content">
+        <div class="product-card-label">Pastry</div>
+        <div class="product-card-name">Pastries & Pairings</div>
+        <div class="product-card-desc">The perfect complement to every cup.</div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-d4">
+      <div class="product-card-bg" style="background:linear-gradient(180deg, #110e0a 0%, #0a0806 100%);"></div>
+      <div class="product-card-overlay"></div>
+      <div class="product-card-content">
+        <div class="product-card-label">Retail</div>
+        <div class="product-card-name">Take-Home Beans</div>
+        <div class="product-card-desc">Bring the ritual home. Whole bean. Ground. Capsules.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE -->
+<section class="life">
+  <div class="section-label reveal">The Space</div>
+  <h2 class="section-title reveal reveal-d1">Built for quiet ambition.</h2>
+
+  <div class="life-scenes">
+    <div class="life-scene reveal reveal-d1">
+      <div class="life-scene-bg" style="background:linear-gradient(180deg, #1a1410 0%, #0e0a08 100%);"></div>
+      <div class="life-scene-overlay"></div>
+      <div class="life-scene-text">Built for the morning pace.</div>
+    </div>
+    <div class="life-scene reveal reveal-d2">
+      <div class="life-scene-bg" style="background:linear-gradient(180deg, #140f0a 0%, #0a0806 100%);"></div>
+      <div class="life-scene-overlay"></div>
+      <div class="life-scene-text">Built for quiet ambition.</div>
+    </div>
+    <div class="life-scene reveal reveal-d3">
+      <div class="life-scene-bg" style="background:linear-gradient(180deg, #110d08 0%, #080604 100%);"></div>
+      <div class="life-scene-overlay"></div>
+      <div class="life-scene-text">Built for the daily ritual.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RETAIL -->
+<section class="retail" id="beans">
+  <div class="section-label reveal">Retail</div>
+  <h2 class="section-title reveal reveal-d1" style="max-width:none;">Bring the ritual home.</h2>
+  <p class="retail-body reveal reveal-d2">From whole bean bags to branded tumblers and gift boxes — the Espresso Co. experience extends beyond the café.</p>
+
+  <div class="retail-items reveal reveal-d3">
+    <div class="retail-item">
+      <div class="retail-item-icon">◉</div>
+      <div class="retail-item-name">Bean Bags</div>
+    </div>
+    <div class="retail-item">
+      <div class="retail-item-icon">◈</div>
+      <div class="retail-item-name">Bottled Coffee</div>
+    </div>
+    <div class="retail-item">
+      <div class="retail-item-icon">◇</div>
+      <div class="retail-item-name">Mugs & Tumblers</div>
+    </div>
+    <div class="retail-item">
+      <div class="retail-item-icon">◆</div>
+      <div class="retail-item-name">Gift Boxes</div>
+    </div>
+    <div class="retail-item">
+      <div class="retail-item-icon">◎</div>
+      <div class="retail-item-name">Subscriptions</div>
+    </div>
+  </div>
+
+  <a href="#" class="btn-warm reveal reveal-d4"><span>Shop Now</span></a>
+</section>
+
+<!-- OFFICE COFFEE -->
+<section class="office">
+  <div>
+    <div class="section-label reveal">For Teams</div>
+    <h2 class="office-title reveal reveal-d1">Coffee service for teams, sets, and elevated events.</h2>
+    <p class="office-body reveal reveal-d2">From office subscriptions to event catering and wholesale partnerships — Espresso Co. brings refined coffee service wherever your team builds.</p>
+    <a href="#" class="btn-warm reveal reveal-d3"><span>Request Coffee Service</span></a>
+  </div>
+  <div class="reveal reveal-d2" style="position:relative;">
+    <div style="aspect-ratio:4/5;background:linear-gradient(180deg, rgba(44,24,16,0.3) 0%, rgba(14,14,14,0.8) 100%);border:1px solid rgba(184,134,11,0.06);display:flex;align-items:center;justify-content:center;">
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display);font-size:48px;font-weight:300;color:var(--bronze-light);margin-bottom:8px;">EC</div>
+        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--taupe);">Office Service</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COFFEE CLUB -->
+<section class="club" id="club">
+  <div>
+    <div class="section-label reveal">Membership</div>
+    <h2 class="section-title reveal reveal-d1">Join the Coffee Club.</h2>
+    <div class="club-perks">
+      <div class="club-perk reveal reveal-d2">
+        <div class="club-perk-title">Seasonal Previews</div>
+        <div class="club-perk-desc">First access to limited drops and new blends.</div>
+      </div>
+      <div class="club-perk reveal reveal-d3">
+        <div class="club-perk-title">Loyalty Rewards</div>
+        <div class="club-perk-desc">Points on every purchase. Redeemable for menu items.</div>
+      </div>
+      <div class="club-perk reveal reveal-d4">
+        <div class="club-perk-title">Birthday Perks</div>
+        <div class="club-perk-desc">A complimentary drink on your day. Every year.</div>
+      </div>
+      <div class="club-perk reveal reveal-d5">
+        <div class="club-perk-title">Member Drops</div>
+        <div class="club-perk-desc">Exclusive merch and retail offers.</div>
+      </div>
+    </div>
+  </div>
+  <div class="club-form reveal reveal-d2">
+    <input class="club-input" type="text" placeholder="Full name" />
+    <input class="club-input" type="email" placeholder="Email address" />
+    <input class="club-input" type="tel" placeholder="Phone (for SMS)" />
+    <a href="#" class="btn-warm" style="text-align:center;justify-content:center;"><span>Join the Club</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Espresso <span>Co.</span></div>
+    <p class="footer-tagline">Brewed for the Pace of the City.<br>A Casper Group brand.</p>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Order</div>
+    <a href="#">Menu</a>
+    <a href="#">Order Ahead</a>
+    <a href="#">Catering</a>
+    <a href="#">Office Coffee</a>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Discover</div>
+    <a href="#">Locations</a>
+    <a href="#">Coffee Club</a>
+    <a href="#">Beans & Retail</a>
+    <a href="#">About</a>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Connect</div>
+    <a href="#">Instagram</a>
+    <a href="#">TikTok</a>
+    <a href="#">Wholesale</a>
+    <a href="#">Partnership</a>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <span>&copy; 2026 Espresso Co. All rights reserved.</span>
+  <span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;">A <a href="#">Casper Group</a> Brand</span>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
