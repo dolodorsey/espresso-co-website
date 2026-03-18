@@ -88,7 +88,7 @@ function VideoIntroHero() {
           filter: 'brightness(0.2) contrast(1.15) saturate(0.55)',
           transform: `scale(1.02) translate(${(mouse.x - 0.5) * -8}px,${(mouse.y - 0.5) * -8}px)`,
           transition: 'transform 0.3s ease'
-        }}><source src="/videos/animated-response.mp4" type="video/mp4" /></video>
+        }}><source src="/videos/brand-animation.mp4" type="video/mp4" /></video>
 
         <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg,${C.dark}00 0%,${C.dark}88 50%,${C.dark} 100%)` }} />
         <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse at ${mouse.x * 100}% ${mouse.y * 100}%,${C.espressoGlow},transparent 50%)` }} />
