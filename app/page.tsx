@@ -69,7 +69,7 @@ function VideoIntroHero() {
           height: '100vh',
           overflow: 'hidden', transition: 'all 1s cubic-bezier(0.16,1,0.3,1)', position: 'relative'
         }}>
-          <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.55) contrast(1.15) saturate(0.75)' }}><source src="/videos/animated-response.mp4" type="video/mp4" /></video>
+          <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.55) contrast(1.15) saturate(0.75)' }}><source src="/videos/logo-animation.mp4" type="video/mp4" /></video>
           <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: phase >= 2 ? 0 : 1, transition: 'opacity 0.5s ease' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ width: 2, height: phase >= 1 ? 40 : 0, background: `linear-gradient(180deg,transparent,${C.bronze})`, margin: '0 auto 18px', transition: 'height 1s cubic-bezier(0.16,1,0.3,1)', borderRadius: 1 }} />
@@ -300,7 +300,7 @@ function Footer() {
     <>
       <footer style={{ background: C.dark, padding: '80px clamp(32px,8vw,100px) 40px', borderTop: `1px solid ${C.border}`, display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48 }}>
         <div>
-          <div><img src="/images/logo.png" alt="Espresso Co." style={{ height: 44, width: 'auto', marginBottom: 16 }} />
+          <div><img src="/images/logo.png" alt="Espresso Co." style={{ height: 44, width: 'auto', marginBottom: 16 }} /></div>
           <p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 13, fontWeight: 300, color: C.muted, fontStyle: 'italic', lineHeight: 1.6 }}>Brewed for the Pace of the City.<br />A Casper Group brand.</p>
         </div>
         {[{ h: 'Order', l: ['Menu', 'Order Ahead', 'Catering', 'Office Coffee'] }, { h: 'Discover', l: ['Locations', 'Coffee Club', 'Beans & Retail', 'About'] }, { h: 'Connect', l: ['Instagram', 'TikTok', 'Wholesale', 'Partnership'] }].map(col => (
