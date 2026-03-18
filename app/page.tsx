@@ -8,12 +8,12 @@ import { useState, useEffect, useRef } from 'react'
    ═══════════════════════════════════════════════════════════════════════ */
 
 const C = {
-  base: '#0E0E0E', dark: '#080808', surface: '#141412', surface2: '#1A1916',
-  espresso: '#2C1810', espressoGlow: 'rgba(44,24,16,0.12)',
-  bronze: '#B8860B', bronzeLight: '#D4A84A', bronzeDim: 'rgba(184,134,11,0.05)',
-  cream: '#F5F0E8', taupe: '#8A8278',
-  muted: 'rgba(245,240,232,0.4)', dim: 'rgba(245,240,232,0.08)',
-  border: 'rgba(245,240,232,0.04)',
+  base: '#12100E', dark: '#0A0908', surface: '#1A1714', surface2: '#221E1A',
+  espresso: '#3A2218', espressoGlow: 'rgba(58,34,24,0.18)',
+  bronze: '#C4940F', bronzeLight: '#E0B84A', bronzeDim: 'rgba(196,148,15,0.08)',
+  cream: '#FAF5EC', taupe: '#A09688',
+  muted: 'rgba(250,245,236,0.55)', dim: 'rgba(250,245,236,0.12)',
+  border: 'rgba(250,245,236,0.07)',
 }
 
 function useInView(t=0.1){const ref=useRef<HTMLDivElement>(null);const[v,setV]=useState(false);useEffect(()=>{const el=ref.current;if(!el)return;const o=new IntersectionObserver(([e])=>{if(e.isIntersecting){setV(true);o.unobserve(el)}},{threshold:t});o.observe(el);return()=>o.disconnect()},[t]);return[ref,v] as const}
