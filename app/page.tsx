@@ -100,7 +100,7 @@ function VideoIntroHero() {
               <span style={{ width: 32, height: 1, background: C.bronze, display: 'inline-block' }} />
               Espresso · Atmosphere · Refined Energy
             </div>
-            <img src="/images/logo.png" alt="Espresso Co." style={{ height: 'clamp(72px,12vw,140px)', width: 'auto', marginBottom: 28, opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(40px)', transition: 'all 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s' }} />
+            <img src="/images/logo.png" alt="Espresso Co." style={{ height: 'clamp(72px,12vw,140px)', width: 'auto', marginBottom: 28, opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(40px)', transition: 'all 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s', mixBlendMode: 'lighten' }} />
             <h1 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(56px,13vw,200px)', fontWeight: 300, lineHeight: 0.88, letterSpacing: '-0.04em', color: C.cream, margin: 0 }}>
               <span style={{ display: 'block', opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(80px)', transition: 'all 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s' }}>Brewed for</span>
               <span style={{ display: 'block', fontStyle: 'italic', opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(80px)', transition: 'all 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s' }}>the <em style={{ color: C.bronzeLight }}>pace</em></span>
@@ -126,7 +126,7 @@ function Nav() {
   useEffect(() => { const fn = () => setS(window.scrollY > 80); window.addEventListener('scroll', fn, { passive: true }); return () => window.removeEventListener('scroll', fn) }, [])
   return (
     <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999, padding: s ? '10px clamp(24px,6vw,80px)' : '24px clamp(24px,6vw,80px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: s ? `${C.base}f0` : 'transparent', backdropFilter: s ? 'blur(32px) saturate(1.3)' : 'none', borderBottom: s ? `1px solid ${C.border}` : 'none', transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)' }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}><img src="/images/logo.png" alt="Espresso Co." style={{ height: s ? 28 : 44, width: 'auto', transition: 'height 0.4s ease' }} /></div>
+      <div style={{ display: 'flex', alignItems: 'center' }}><img src="/images/logo.png" alt="Espresso Co." style={{ height: s ? 28 : 44, width: 'auto', transition: 'height 0.4s ease', mixBlendMode: 'lighten' }} /></div>
       <div style={{ display: 'flex', gap: 'clamp(14px,2.5vw,36px)', alignItems: 'center' }}>
         {['Menu', 'Locations', 'Beans', 'Club'].map(n => (<a key={n} href={`#${n.toLowerCase()}`} className="nav-link-hide" style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.25em', textTransform: 'uppercase', color: C.muted, textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={e => (e.target as HTMLElement).style.color = C.cream} onMouseLeave={e => (e.target as HTMLElement).style.color = 'rgba(245,240,232,0.4)'}>{n}</a>))}
         <button style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', color: C.dark, background: C.bronze, border: 'none', padding: '9px 24px', cursor: 'pointer' }}>Order Ahead</button>
@@ -300,7 +300,7 @@ function Footer() {
     <>
       <footer style={{ background: C.dark, padding: '80px clamp(32px,8vw,100px) 40px', borderTop: `1px solid ${C.border}`, display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48 }}>
         <div>
-          <div><img src="/images/logo.png" alt="Espresso Co." style={{ height: 44, width: 'auto', marginBottom: 16 }} /></div>
+          <div><img src="/images/logo.png" alt="Espresso Co." style={{ height: 44, width: 'auto', marginBottom: 16, mixBlendMode: 'lighten' }} /></div>
           <p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 13, fontWeight: 300, color: C.muted, fontStyle: 'italic', lineHeight: 1.6 }}>Brewed for the Pace of the City.<br />A Casper Group brand.</p>
         </div>
         {[{ h: 'Order', l: ['Menu', 'Order Ahead', 'Catering', 'Office Coffee'] }, { h: 'Discover', l: ['Locations', 'Coffee Club', 'Beans & Retail', 'About'] }, { h: 'Connect', l: ['Instagram', 'TikTok', 'Wholesale', 'Partnership'] }].map(col => (
