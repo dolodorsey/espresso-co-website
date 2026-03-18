@@ -69,7 +69,7 @@ function VideoIntroHero() {
           height: '100vh',
           overflow: 'hidden', transition: 'all 1s cubic-bezier(0.16,1,0.3,1)', position: 'relative'
         }}>
-          <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.55) contrast(1.15) saturate(0.75)' }}><source src="/videos/hero.mp4" type="video/mp4" /></video>
+          <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.55) contrast(1.15) saturate(0.75)' }}><source src="/videos/animated-response.mp4" type="video/mp4" /></video>
           <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: phase >= 2 ? 0 : 1, transition: 'opacity 0.5s ease' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ width: 2, height: phase >= 1 ? 40 : 0, background: `linear-gradient(180deg,transparent,${C.bronze})`, margin: '0 auto 18px', transition: 'height 1s cubic-bezier(0.16,1,0.3,1)', borderRadius: 1 }} />
@@ -88,7 +88,7 @@ function VideoIntroHero() {
           filter: 'brightness(0.2) contrast(1.15) saturate(0.55)',
           transform: `scale(1.02) translate(${(mouse.x - 0.5) * -8}px,${(mouse.y - 0.5) * -8}px)`,
           transition: 'transform 0.3s ease'
-        }}><source src="/videos/hero.mp4" type="video/mp4" /></video>
+        }}><source src="/videos/animated-response.mp4" type="video/mp4" /></video>
 
         <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg,${C.dark}00 0%,${C.dark}88 50%,${C.dark} 100%)` }} />
         <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse at ${mouse.x * 100}% ${mouse.y * 100}%,${C.espressoGlow},transparent 50%)` }} />
@@ -100,6 +100,7 @@ function VideoIntroHero() {
               <span style={{ width: 32, height: 1, background: C.bronze, display: 'inline-block' }} />
               Espresso · Atmosphere · Refined Energy
             </div>
+            <img src="/images/logo.png" alt="Espresso Co." style={{ height: 'clamp(72px,12vw,140px)', width: 'auto', marginBottom: 28, opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(40px)', transition: 'all 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s' }} />
             <h1 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(56px,13vw,200px)', fontWeight: 300, lineHeight: 0.88, letterSpacing: '-0.04em', color: C.cream, margin: 0 }}>
               <span style={{ display: 'block', opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(80px)', transition: 'all 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s' }}>Brewed for</span>
               <span style={{ display: 'block', fontStyle: 'italic', opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(80px)', transition: 'all 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s' }}>the <em style={{ color: C.bronzeLight }}>pace</em></span>
@@ -125,7 +126,7 @@ function Nav() {
   useEffect(() => { const fn = () => setS(window.scrollY > 80); window.addEventListener('scroll', fn, { passive: true }); return () => window.removeEventListener('scroll', fn) }, [])
   return (
     <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999, padding: s ? '10px clamp(24px,6vw,80px)' : '24px clamp(24px,6vw,80px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: s ? `${C.base}f0` : 'transparent', backdropFilter: s ? 'blur(32px) saturate(1.3)' : 'none', borderBottom: s ? `1px solid ${C.border}` : 'none', transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)' }}>
-      <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 20, fontWeight: 400, color: C.cream, letterSpacing: '0.04em' }}>Espresso <span style={{ fontStyle: 'italic', fontWeight: 300, opacity: 0.6 }}>Co.</span></div>
+      <div style={{ display: 'flex', alignItems: 'center' }}><img src="/images/logo.png" alt="Espresso Co." style={{ height: s ? 28 : 44, width: 'auto', transition: 'height 0.4s ease' }} /></div>
       <div style={{ display: 'flex', gap: 'clamp(14px,2.5vw,36px)', alignItems: 'center' }}>
         {['Menu', 'Locations', 'Beans', 'Club'].map(n => (<a key={n} href={`#${n.toLowerCase()}`} className="nav-link-hide" style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.25em', textTransform: 'uppercase', color: C.muted, textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={e => (e.target as HTMLElement).style.color = C.cream} onMouseLeave={e => (e.target as HTMLElement).style.color = 'rgba(245,240,232,0.4)'}>{n}</a>))}
         <button style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', color: C.dark, background: C.bronze, border: 'none', padding: '9px 24px', cursor: 'pointer' }}>Order Ahead</button>
@@ -136,7 +137,8 @@ function Nav() {
 
 function Experience() {
   return (
-    <section id="menu" style={{ padding: '120px clamp(32px,8vw,100px)', borderTop: `1px solid ${C.bronzeDim}`, background: C.base }}>
+    <section id="menu" style={{ padding: '120px clamp(32px,8vw,100px)', borderTop: `1px solid ${C.bronzeDim}`, background: C.base, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.06, pointerEvents: 'none' }}><img src="/images/espresso-machine.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
       <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>The Experience</div>
         <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 52 }}>Every pour, intentional.</h2></Rev>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 1, background: C.bronzeDim }}>
@@ -158,7 +160,8 @@ function Experience() {
 
 function Story() {
   return (
-    <section style={{ padding: '160px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 100, alignItems: 'center', background: C.base }}>
+    <section style={{ padding: '160px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 100, alignItems: 'center', background: C.base, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.05, pointerEvents: 'none' }}><img src="/images/bean-lightning.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
       <Rev><div>
         <div style={{ width: 48, height: 1, background: C.bronze, marginBottom: 40 }} />
         <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(40px,5.5vw,72px)', fontWeight: 300, lineHeight: 1.08, color: C.cream }}>For the people who build<br /><em style={{ fontWeight: 500, color: C.bronzeLight }}>before noon.</em></h2>
@@ -174,7 +177,8 @@ function Story() {
 
 function Products() {
   return (
-    <section style={{ padding: '120px clamp(32px,8vw,100px)', background: C.dark }}>
+    <section style={{ padding: '120px clamp(32px,8vw,100px)', background: C.dark, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.06, pointerEvents: 'none' }}><img src="/images/bean-crew.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
       <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>The Menu</div>
         <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 52 }}>Crafted categories.</h2></Rev>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2 }}>
@@ -205,13 +209,14 @@ function LifeScenes() {
     { text: 'Built for the daily ritual.', bg: "url('/images/espresso-glass.png') center/cover" },
   ]
   return (
-    <section style={{ padding: '120px clamp(32px,8vw,100px)', background: C.base }}>
+    <section style={{ padding: '120px clamp(32px,8vw,100px)', background: C.base, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.05, pointerEvents: 'none' }}><img src="/images/storefront.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
       <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>The Space</div>
         <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 52 }}>Built for quiet ambition.</h2></Rev>
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridTemplateRows: '350px 350px', gap: 2 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2 }}>
         {scenes.map((s, i) => (
           <Rev key={i} d={0.06 * i}>
-            <div style={{ position: 'relative', overflow: 'hidden', height: '100%', gridRow: i === 0 ? '1/3' : undefined, cursor: 'pointer' }}
+            <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '4/3', cursor: 'pointer' }}
               onMouseEnter={e => { const bg = e.currentTarget.querySelector('.scene-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1.04)' }}
               onMouseLeave={e => { const bg = e.currentTarget.querySelector('.scene-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1)' }}>
               <div className="scene-bg" style={{ position: 'absolute', inset: 0, background: s.bg, transition: 'transform 1.2s cubic-bezier(0.16,1,0.3,1)' }} />
@@ -227,7 +232,8 @@ function LifeScenes() {
 
 function Retail() {
   return (
-    <section id="beans" style={{ padding: '120px clamp(32px,8vw,100px)', textAlign: 'center', borderTop: `1px solid ${C.border}`, background: C.dark }}>
+    <section id="beans" style={{ padding: '120px clamp(32px,8vw,100px)', textAlign: 'center', borderTop: `1px solid ${C.border}`, background: C.dark, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.06, pointerEvents: 'none' }}><img src="/images/coffee-trio.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
       <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>Retail</div>
         <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 24 }}>Bring the ritual home.</h2>
         <p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 'clamp(15px,1.4vw,18px)', fontWeight: 300, color: C.muted, maxWidth: 500, margin: '0 auto 52px', lineHeight: 1.85 }}>From whole bean bags to branded tumblers and gift boxes — the Espresso Co. experience extends beyond the café.</p></Rev>
@@ -246,7 +252,8 @@ function Retail() {
 
 function Office() {
   return (
-    <section style={{ padding: '160px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', position: 'relative', background: C.base }}>
+    <section style={{ padding: '160px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', position: 'relative', background: C.base, overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.05, pointerEvents: 'none' }}><img src="/images/bean-clipboard.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
       <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 50% 50% at 70% 50%,${C.espressoGlow},transparent 70%)` }} />
       <div style={{ position: 'relative' }}>
         <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>For Teams</div>
@@ -266,7 +273,8 @@ function Office() {
 
 function Club() {
   return (
-    <section id="club" style={{ padding: '120px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', background: C.dark, borderTop: `1px solid ${C.border}` }}>
+    <section id="club" style={{ padding: '120px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', background: C.dark, borderTop: `1px solid ${C.border}`, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.06, pointerEvents: 'none' }}><img src="/images/bean-scientist.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
       <div>
         <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>Membership</div>
           <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 36 }}>Join the Coffee Club.</h2></Rev>
@@ -292,7 +300,7 @@ function Footer() {
     <>
       <footer style={{ background: C.dark, padding: '80px clamp(32px,8vw,100px) 40px', borderTop: `1px solid ${C.border}`, display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48 }}>
         <div>
-          <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 28, fontWeight: 400, color: C.cream, letterSpacing: '0.04em', marginBottom: 16 }}>Espresso <span style={{ fontStyle: 'italic', fontWeight: 300, opacity: 0.6 }}>Co.</span></div>
+          <div><img src="/images/logo.png" alt="Espresso Co." style={{ height: 44, width: 'auto', marginBottom: 16 }} />
           <p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 13, fontWeight: 300, color: C.muted, fontStyle: 'italic', lineHeight: 1.6 }}>Brewed for the Pace of the City.<br />A Casper Group brand.</p>
         </div>
         {[{ h: 'Order', l: ['Menu', 'Order Ahead', 'Catering', 'Office Coffee'] }, { h: 'Discover', l: ['Locations', 'Coffee Club', 'Beans & Retail', 'About'] }, { h: 'Connect', l: ['Instagram', 'TikTok', 'Wholesale', 'Partnership'] }].map(col => (
