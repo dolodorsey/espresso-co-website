@@ -85,14 +85,14 @@ function VideoIntroHero() {
       >
         <video autoPlay muted loop playsInline style={{
           position: 'absolute', inset: '-5%', width: '110%', height: '110%', objectFit: 'cover',
-          filter: 'brightness(0.2) contrast(1.15) saturate(0.55)',
+          filter: 'brightness(0.45) contrast(1.15) saturate(0.55)',
           transform: `scale(1.02) translate(${(mouse.x - 0.5) * -8}px,${(mouse.y - 0.5) * -8}px)`,
           transition: 'transform 0.3s ease'
         }}><source src="/videos/brand-animation.mp4" type="video/mp4" /></video>
 
         <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg,${C.dark}00 0%,${C.dark}88 50%,${C.dark} 100%)` }} />
         <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse at ${mouse.x * 100}% ${mouse.y * 100}%,${C.espressoGlow},transparent 50%)` }} />
-        <div style={{ position: 'absolute', inset: 0, opacity: 0.04, pointerEvents: 'none', mixBlendMode: 'overlay', backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.15, pointerEvents: 'none', mixBlendMode: 'overlay', backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
 
         <div style={{ position: 'relative', zIndex: 2, padding: '160px clamp(32px,8vw,100px) 120px', maxWidth: 1300, margin: '0 auto', width: '100%' }}>
           <div style={{ opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(60px)', transition: 'all 1.4s cubic-bezier(0.16,1,0.3,1) 0.2s' }}>
@@ -138,7 +138,7 @@ function Nav() {
 function Experience() {
   return (
     <section id="menu" style={{ padding: '120px clamp(32px,8vw,100px)', borderTop: `1px solid ${C.bronzeDim}`, background: C.base, position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.06, pointerEvents: 'none' }}><img src="/images/espresso-machine.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.18, pointerEvents: 'none' }}><img src="/images/espresso-machine.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45) saturate(0.3)' }} /></div>
       <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>The Experience</div>
         <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 52 }}>Every pour, intentional.</h2></Rev>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 1, background: C.bronzeDim }}>
@@ -161,7 +161,7 @@ function Experience() {
 function Story() {
   return (
     <section style={{ padding: '160px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 100, alignItems: 'center', background: C.base, position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.05, pointerEvents: 'none' }}><img src="/images/bean-lightning.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.18, pointerEvents: 'none' }}><img src="/images/bean-lightning.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45) saturate(0.3)' }} /></div>
       <Rev><div>
         <div style={{ width: 48, height: 1, background: C.bronze, marginBottom: 40 }} />
         <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(40px,5.5vw,72px)', fontWeight: 300, lineHeight: 1.08, color: C.cream }}>For the people who build<br /><em style={{ fontWeight: 500, color: C.bronzeLight }}>before noon.</em></h2>
@@ -178,7 +178,7 @@ function Story() {
 function Products() {
   return (
     <section style={{ padding: '120px clamp(32px,8vw,100px)', background: C.dark, position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.06, pointerEvents: 'none' }}><img src="/images/bean-crew.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.18, pointerEvents: 'none' }}><img src="/images/bean-crew.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45) saturate(0.3)' }} /></div>
       <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>The Menu</div>
         <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 52 }}>Crafted categories.</h2></Rev>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2 }}>
@@ -210,7 +210,7 @@ function LifeScenes() {
   ]
   return (
     <section style={{ padding: '120px clamp(32px,8vw,100px)', background: C.base, position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.05, pointerEvents: 'none' }}><img src="/images/storefront.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.18, pointerEvents: 'none' }}><img src="/images/storefront.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45) saturate(0.3)' }} /></div>
       <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>The Space</div>
         <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 52 }}>Built for quiet ambition.</h2></Rev>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2 }}>
@@ -233,7 +233,7 @@ function LifeScenes() {
 function Retail() {
   return (
     <section id="beans" style={{ padding: '120px clamp(32px,8vw,100px)', textAlign: 'center', borderTop: `1px solid ${C.border}`, background: C.dark, position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.06, pointerEvents: 'none' }}><img src="/images/coffee-trio.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.18, pointerEvents: 'none' }}><img src="/images/coffee-trio.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45) saturate(0.3)' }} /></div>
       <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>Retail</div>
         <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 24 }}>Bring the ritual home.</h2>
         <p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 'clamp(15px,1.4vw,18px)', fontWeight: 300, color: C.muted, maxWidth: 500, margin: '0 auto 52px', lineHeight: 1.85 }}>From whole bean bags to branded tumblers and gift boxes — the Espresso Co. experience extends beyond the café.</p></Rev>
@@ -253,7 +253,7 @@ function Retail() {
 function Office() {
   return (
     <section style={{ padding: '160px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', position: 'relative', background: C.base, overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.05, pointerEvents: 'none' }}><img src="/images/bean-clipboard.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.18, pointerEvents: 'none' }}><img src="/images/bean-clipboard.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45) saturate(0.3)' }} /></div>
       <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 50% 50% at 70% 50%,${C.espressoGlow},transparent 70%)` }} />
       <div style={{ position: 'relative' }}>
         <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>For Teams</div>
@@ -274,7 +274,7 @@ function Office() {
 function Club() {
   return (
     <section id="club" style={{ padding: '120px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', background: C.dark, borderTop: `1px solid ${C.border}`, position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.06, pointerEvents: 'none' }}><img src="/images/bean-scientist.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2) saturate(0.3)' }} /></div>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.18, pointerEvents: 'none' }}><img src="/images/bean-scientist.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45) saturate(0.3)' }} /></div>
       <div>
         <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>Membership</div>
           <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 36 }}>Join the Coffee Club.</h2></Rev>
