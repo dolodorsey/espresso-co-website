@@ -1,76 +1,329 @@
 'use client'
+import { useState, useEffect, useRef } from 'react'
 
-import { useEffect } from 'react'
+/* ═══════════════════════════════════════════════════════════════════════
+   ESPRESSO CO. — EXTRAORDINARY V2
+   Casper Group sub-brand. Bronze/Espresso on dark.
+   Video intro → hero BG. Morning ritual. Quiet ambition.
+   ═══════════════════════════════════════════════════════════════════════ */
 
-export default function Home() {
+const C = {
+  base: '#0E0E0E', dark: '#080808', surface: '#141412', surface2: '#1A1916',
+  espresso: '#2C1810', espressoGlow: 'rgba(44,24,16,0.12)',
+  bronze: '#B8860B', bronzeLight: '#D4A84A', bronzeDim: 'rgba(184,134,11,0.05)',
+  cream: '#F5F0E8', taupe: '#8A8278',
+  muted: 'rgba(245,240,232,0.4)', dim: 'rgba(245,240,232,0.08)',
+  border: 'rgba(245,240,232,0.04)',
+}
+
+function useInView(t=0.1){const ref=useRef<HTMLDivElement>(null);const[v,setV]=useState(false);useEffect(()=>{const el=ref.current;if(!el)return;const o=new IntersectionObserver(([e])=>{if(e.isIntersecting){setV(true);o.unobserve(el)}},{threshold:t});o.observe(el);return()=>o.disconnect()},[t]);return[ref,v] as const}
+function Rev({children,d=0,y=48}:{children:React.ReactNode;d?:number;y?:number}){const[ref,v]=useInView();return<div ref={ref} style={{transform:v?'translateY(0)':`translateY(${y}px)`,opacity:v?1:0,transition:`all 1.1s cubic-bezier(0.16,1,0.3,1) ${d}s`}}>{children}</div>}
+
+const experiences = [
+  { icon: '☕', name: 'Espresso Ritual', sub: 'The Foundation' },
+  { icon: '🧊', name: 'Cold & Bold', sub: 'Iced Perfection' },
+  { icon: '✦', name: 'Signature Lattes', sub: 'Our Creations' },
+  { icon: '🥐', name: 'Pastries & Pairings', sub: 'The Complement' },
+  { icon: '◉', name: 'Whole Bean', sub: 'Take It Home' },
+  { icon: '◈', name: 'Office Coffee', sub: 'For Teams' },
+]
+
+const products = [
+  { label: 'Espresso', name: 'The Foundation', desc: 'Single origin. Double shot. The ritual.', bg: "linear-gradient(180deg,rgba(14,14,14,0.3),rgba(14,14,14,0.85)),url('/images/espresso-shot.jpg') center/cover" },
+  { label: 'Iced', name: 'Cold & Bold', desc: 'Flash-chilled. Perfectly extracted. Never diluted.', bg: "linear-gradient(180deg,rgba(14,14,14,0.3),rgba(14,14,14,0.85)),url('/images/iced-splash.png') center/cover" },
+  { label: 'Signature', name: 'The Sci-Fi Latte', desc: 'Our signature creation. Oat milk. Honey. Espresso.', bg: "linear-gradient(180deg,rgba(14,14,14,0.3),rgba(14,14,14,0.85)),url('/images/scifi-latte.png') center/cover" },
+  { label: 'Pour Over', name: 'The Slow Pour', desc: 'Hand-brewed. Single cup. Full ceremony.', bg: "linear-gradient(180deg,rgba(14,14,14,0.3),rgba(14,14,14,0.85)),url('/images/espresso-glass.png') center/cover" },
+  { label: 'Retail', name: 'Whole Bean Bags', desc: 'Our roasts. Your kitchen. Same ritual.', bg: "linear-gradient(180deg,rgba(14,14,14,0.3),rgba(14,14,14,0.85)),url('/images/coffee-trio.png') center/cover" },
+  { label: 'Merch', name: 'Matte Cup Collection', desc: 'The vessel matters. Branded. Minimal. Designed.', bg: "linear-gradient(180deg,rgba(14,14,14,0.3),rgba(14,14,14,0.85)),url('/images/matte-cup.png') center/cover" },
+]
+
+const clubPerks = [
+  { title: 'Free Espresso', desc: 'Every 8th drink free. Points on every purchase.' },
+  { title: 'Early Roasts', desc: 'First access to seasonal single-origin releases.' },
+  { title: 'Member Events', desc: 'Invite-only tastings, latte art sessions, and brew labs.' },
+  { title: 'Birthday Pour', desc: 'Free specialty drink of your choice. Every year.' },
+]
+
+/* ─── VIDEO INTRO → HERO BG ─── */
+function VideoIntroHero() {
+  const [phase, setPhase] = useState(0)
+  const [mouse, setMouse] = useState({ x: 0.5, y: 0.5 })
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add('visible')
-        })
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
-    )
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
+    const t1 = setTimeout(() => setPhase(1), 2000)
+    const t2 = setTimeout(() => setPhase(2), 3000)
+    const t3 = setTimeout(() => setPhase(3), 3600)
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [])
-
-  const experiences = [
-    { icon: '☕', name: 'Espresso Ritual', sub: 'The Foundation' },
-    { icon: '🧊', name: 'Cold & Bold', sub: 'Iced Perfection' },
-    { icon: '✦', name: 'Signature Lattes', sub: 'Our Creations' },
-    { icon: '🥐', name: 'Pastries & Pairings', sub: 'The Complement' },
-    { icon: '◉', name: 'Whole Bean', sub: 'Take It Home' },
-    { icon: '◈', name: 'Office Coffee', sub: 'For Teams' },
-  ]
-  const products = [
-    { label: 'Signature', name: 'Morning Essentials', desc: 'Espresso, cortado, americano — the core ritual.', bg: "url('/images/espresso-glass.png') center/cover" },
-    { label: 'Premium', name: 'Signature Espresso', desc: 'Single-origin, handcrafted, atmospheric.', bg: "url('/images/matte-cup.png') center/cover" },
-    { label: 'Iced', name: 'Cold & Bold', desc: 'Cold brew, iced latte, nitro — city pace energy.', bg: "url('/images/iced-splash.png') center/cover" },
-    { label: 'Seasonal', name: 'Seasonal Rituals', desc: 'Limited collections that change with the moment.', bg: "url('/images/scifi-latte.png') center/cover" },
-    { label: 'Pastry', name: 'Pastries & Pairings', desc: 'The perfect complement to every cup.', bg: "url('/images/coffee-trio.png') center/cover" },
-    { label: 'Retail', name: 'Take-Home Beans', desc: 'Bring the ritual home. Whole bean. Ground. Capsules.', bg: "url('/images/espresso-shot.jpg') center/cover" },
-  ]
-  const clubPerks = [
-    { title: 'Seasonal Previews', desc: 'First access to limited drops and new blends.' },
-    { title: 'Loyalty Rewards', desc: 'Points on every purchase. Redeemable for menu items.' },
-    { title: 'Birthday Perks', desc: 'A complimentary drink on your day. Every year.' },
-    { title: 'Member Drops', desc: 'Exclusive merch and retail offers.' },
-  ]
 
   return (
     <>
-      <style jsx global>{`
-        :root{--espresso:#2C1810;--espresso-deep:#1A0E08;--black:#0E0E0E;--bronze:#B8860B;--bronze-light:#D4A54A;--cream:#F5F0E8;--taupe:#8B7D6B;--wood:#5C4A3A;--font-display:'Cormorant Garamond',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif;--ease-expo:cubic-bezier(0.16,1,0.3,1);--ease-smooth:cubic-bezier(0.37,0,0.63,1);--text-hero:clamp(52px,10vw,150px);--text-section:clamp(32px,5vw,68px);--text-body-lg:clamp(14px,1.3vw,18px);--text-caption:clamp(9px,0.85vw,11px)}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--black);color:var(--cream);font-family:var(--font-body);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
-        .hero-video{position:absolute;inset:0;z-index:0;overflow:hidden}.hero-video video{width:100%;height:100%;object-fit:cover;opacity:0.55}
-        nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:28px 56px;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}.nav-logo{font-family:var(--font-display);font-size:22px;font-weight:500;letter-spacing:.08em;color:var(--cream)}.nav-logo span{font-weight:300;font-style:italic;opacity:.7}.nav-links{display:flex;gap:36px;list-style:none}.nav-links a{color:var(--cream);text-decoration:none;font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:400;opacity:.6;transition:opacity .3s}.nav-links a:hover{opacity:1}
-        .hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:flex-end;padding:0 56px 100px;overflow:hidden}.hero-bg{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(14,14,14,0.25) 0%,rgba(14,14,14,0.55) 40%,rgba(14,14,14,0.93) 100%)}.hero-light{position:absolute;top:0;right:20%;width:400px;height:100%;background:linear-gradient(180deg,rgba(245,240,232,.06) 0%,rgba(184,134,11,.04) 30%,transparent 70%);transform:rotate(-5deg) skewX(-5deg);filter:blur(60px);animation:morningLight 8s var(--ease-smooth) infinite}@keyframes morningLight{0%,100%{opacity:.5}50%{opacity:1}}.steam{position:absolute;bottom:30%;width:80px;height:200px;background:radial-gradient(ellipse,rgba(245,240,232,.04) 0%,transparent 70%);filter:blur(20px);animation:steamRise 6s var(--ease-smooth) infinite}@keyframes steamRise{0%{transform:translateY(0) scaleX(1);opacity:0}20%{opacity:.4}80%{opacity:0}100%{transform:translateY(-150px) scaleX(1.5);opacity:0}}
-        .hero-content{position:relative;z-index:2;max-width:800px}.hero-tag{font-size:var(--text-caption);letter-spacing:.5em;text-transform:uppercase;color:var(--bronze);margin-bottom:28px;opacity:0;transform:translateY(30px);animation:revealUp .8s var(--ease-expo) .4s forwards}.hero h1{font-family:var(--font-display);font-size:var(--text-hero);font-weight:300;line-height:.95;letter-spacing:-.01em;margin-bottom:36px;opacity:0;transform:translateY(60px);animation:revealUp 1s var(--ease-expo) .6s forwards}.hero h1 em{font-style:italic;font-weight:500;color:var(--bronze-light)}.hero-sub{font-size:var(--text-body-lg);font-weight:300;line-height:1.8;max-width:480px;color:rgba(245,240,232,.5);margin-bottom:52px;opacity:0;transform:translateY(40px);animation:revealUp .8s var(--ease-expo) .9s forwards}.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;opacity:0;transform:translateY(30px);animation:revealUp .8s var(--ease-expo) 1.1s forwards}@keyframes revealUp{to{opacity:1;transform:translateY(0)}}
-        .btn-warm{display:inline-flex;align-items:center;gap:10px;padding:16px 44px;background:var(--bronze);color:var(--black);font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .5s var(--ease-expo);position:relative;overflow:hidden}.btn-warm::before{content:'';position:absolute;inset:0;background:var(--bronze-light);transform:translateX(-100%);transition:transform .5s var(--ease-expo)}.btn-warm:hover::before{transform:translateX(0)}.btn-warm span{position:relative;z-index:1}.btn-outline{display:inline-flex;align-items:center;gap:10px;padding:16px 44px;background:transparent;color:var(--cream);font-family:var(--font-body);font-size:11px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(245,240,232,.15);cursor:pointer;transition:all .4s var(--ease-expo)}.btn-outline:hover{border-color:var(--bronze);color:var(--bronze-light)}
-        .experience{padding:100px 56px;border-top:1px solid rgba(184,134,11,.08)}.exp-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:rgba(184,134,11,.06);margin-top:48px}.exp-tile{background:var(--black);padding:40px 24px;text-align:center;cursor:pointer;transition:all .5s var(--ease-expo);position:relative}.exp-tile::after{content:'';position:absolute;bottom:0;left:50%;right:50%;height:1px;background:var(--bronze);transition:all .5s var(--ease-expo)}.exp-tile:hover{background:rgba(184,134,11,.03)}.exp-tile:hover::after{left:20%;right:20%}.exp-tile-icon{font-size:28px;margin-bottom:16px;opacity:.6;transition:opacity .3s}.exp-tile:hover .exp-tile-icon{opacity:1}.exp-tile-name{font-family:var(--font-display);font-size:16px;font-weight:500;letter-spacing:.05em;margin-bottom:6px}.exp-tile-sub{font-size:10px;color:var(--taupe);letter-spacing:.15em;text-transform:uppercase}
-        .story{padding:160px 56px;display:grid;grid-template-columns:1.2fr 1fr;gap:100px;align-items:center}.story-headline{font-family:var(--font-display);font-size:clamp(36px,5.5vw,72px);font-weight:300;line-height:1.1}.story-headline em{font-style:italic;font-weight:500;display:block;color:var(--bronze-light)}.story-line{width:48px;height:1px;background:var(--bronze);margin:32px 0}.story-right p{font-size:var(--text-body-lg);line-height:1.9;color:rgba(245,240,232,.5);margin-bottom:20px}
-        .products{padding:120px 56px}.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px}.product-card{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer;background:var(--espresso-deep)}.product-card-bg{position:absolute;inset:0;transition:transform 1.2s var(--ease-expo)}.product-card:hover .product-card-bg{transform:scale(1.06)}.product-card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(14,14,14,.85) 100%)}.product-card-content{position:absolute;bottom:0;left:0;right:0;padding:36px}.product-card-label{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);margin-bottom:8px}.product-card-name{font-family:var(--font-display);font-size:24px;font-weight:500;letter-spacing:.03em;margin-bottom:8px}.product-card-desc{font-size:12px;color:rgba(245,240,232,.4);line-height:1.6}
-        .life{padding:120px 56px}.life-scenes{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:350px 350px;gap:2px;margin-top:48px}.life-scene{position:relative;overflow:hidden}.life-scene:first-child{grid-row:1/3}.life-scene-bg{position:absolute;inset:0;transition:transform 1.2s var(--ease-expo)}.life-scene:hover .life-scene-bg{transform:scale(1.04)}.life-scene-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(14,14,14,.6) 100%)}.life-scene-text{position:absolute;bottom:28px;left:28px;font-family:var(--font-display);font-size:16px;font-weight:400;font-style:italic;color:rgba(245,240,232,.6)}
-        .retail{padding:120px 56px;text-align:center;border-top:1px solid rgba(184,134,11,.06)}.retail-body{font-size:var(--text-body-lg);color:rgba(245,240,232,.45);max-width:500px;margin:0 auto 48px;line-height:1.8}.retail-items{display:flex;justify-content:center;gap:48px;margin-bottom:48px;flex-wrap:wrap}.retail-item{text-align:center}.retail-item-icon{width:64px;height:64px;border:1px solid rgba(184,134,11,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;transition:all .4s var(--ease-expo)}.retail-item:hover .retail-item-icon{border-color:var(--bronze);background:rgba(184,134,11,.06)}.retail-item-name{font-family:var(--font-display);font-size:14px;font-weight:500}
-        .office{padding:160px 56px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative}.office::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 50% at 70% 50%,rgba(44,24,16,.3) 0%,transparent 70%)}.office-title{font-family:var(--font-display);font-size:var(--text-section);font-weight:300;line-height:1.1;margin-bottom:24px;position:relative}.office-body{font-size:var(--text-body-lg);color:rgba(245,240,232,.5);line-height:1.8;margin-bottom:40px;position:relative}
-        .club{padding:120px 56px;border-top:1px solid rgba(184,134,11,.06);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}.club-perks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}.club-perk{padding:24px;border:1px solid rgba(184,134,11,.08);background:rgba(184,134,11,.02);transition:border-color .4s}.club-perk:hover{border-color:rgba(184,134,11,.2)}.club-perk-title{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--bronze-light);margin-bottom:6px}.club-perk-desc{font-size:12px;color:rgba(245,240,232,.35);line-height:1.6}.club-input{padding:16px 24px;background:rgba(255,255,255,.02);border:1px solid rgba(245,240,232,.08);color:var(--cream);font-family:var(--font-body);font-size:14px;outline:none;transition:border-color .3s;width:100%}.club-input:focus{border-color:var(--bronze)}.club-input::placeholder{color:rgba(245,240,232,.2)}
-        .section-label{font-size:var(--text-caption);letter-spacing:.5em;text-transform:uppercase;color:var(--bronze);margin-bottom:16px}.section-title{font-family:var(--font-display);font-size:var(--text-section);font-weight:300;line-height:1.1;margin-bottom:48px;max-width:600px}
-        footer{padding:80px 56px 40px;border-top:1px solid rgba(245,240,232,.04);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}.footer-brand{font-family:var(--font-display);font-size:28px;font-weight:400;letter-spacing:.04em;margin-bottom:16px}.footer-brand span{font-style:italic;font-weight:300;opacity:.6}.footer-tagline{font-size:13px;color:rgba(245,240,232,.25);font-style:italic;line-height:1.6}.footer-col-title{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);margin-bottom:20px}.footer-col a{display:block;color:rgba(245,240,232,.35);text-decoration:none;font-size:13px;margin-bottom:12px;transition:color .3s}.footer-col a:hover{color:var(--cream)}.footer-bottom{padding:32px 56px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(245,240,232,.03);font-size:11px;color:rgba(245,240,232,.15)}.footer-bottom a{color:rgba(245,240,232,.15);text-decoration:none}
-        .reveal{opacity:0;transform:translateY(50px);transition:opacity .8s var(--ease-expo),transform .8s var(--ease-expo)}.reveal.visible{opacity:1;transform:translateY(0)}.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}
-        @media(max-width:768px){nav{padding:16px 24px}.nav-links{display:none}.hero{padding:0 24px 60px}.exp-grid{grid-template-columns:repeat(3,1fr)}.story{grid-template-columns:1fr;padding:80px 24px;gap:40px}.products{padding:80px 24px}.products-grid{grid-template-columns:1fr 1fr}.life{padding:80px 24px}.life-scenes{grid-template-columns:1fr 1fr;grid-template-rows:auto}.life-scene:first-child{grid-row:auto}.life-scene{min-height:200px}.retail{padding:80px 24px}.office{grid-template-columns:1fr;padding:80px 24px;gap:40px}.club{grid-template-columns:1fr;padding:80px 24px;gap:40px}footer{grid-template-columns:1fr 1fr;padding:60px 24px 30px}.footer-bottom{padding:24px;flex-direction:column;gap:12px}}@media(max-width:480px){.exp-grid{grid-template-columns:repeat(2,1fr)}.products-grid{grid-template-columns:1fr}}
-      `}</style>
-      <nav><div className="nav-logo">Espresso <span>Co.</span></div><ul className="nav-links"><li><a href="#menu">Menu</a></li><li><a href="#locations">Locations</a></li><li><a href="#beans">Beans & Retail</a></li><li><a href="#club">Coffee Club</a></li><li><a href="#" className="btn-warm" style={{padding:'10px 28px',fontSize:'10px',letterSpacing:'0.15em'}}><span>Order Ahead</span></a></li></ul></nav>
-      <section className="hero"><div className="hero-bg"/><div className="hero-video"><video autoPlay muted loop playsInline><source src="/videos/hero.mp4" type="video/mp4"/></video></div><div className="hero-light"/><div className="steam" style={{left:'60%',animationDelay:'0s'}}/><div className="steam" style={{left:'55%',animationDelay:'2s',opacity:0.6}}/><div className="steam" style={{left:'65%',animationDelay:'4s',opacity:0.4}}/><div className="hero-content"><div className="hero-tag">Espresso · Atmosphere · Refined Energy</div><h1>Brewed for<br/>the <em>pace</em><br/>of the city.</h1><p className="hero-sub">Espresso, atmosphere, and refined energy for mornings, meetings, and moments in between.</p><div className="hero-ctas"><a href="#" className="btn-warm"><span>Order Ahead</span></a><a href="#menu" className="btn-outline">View Menu</a><a href="#locations" className="btn-outline">Find a Café</a></div></div></section>
-      <section className="experience" id="menu"><div className="section-label reveal">The Experience</div><h2 className="section-title reveal reveal-d1">Every pour, intentional.</h2><div className="exp-grid">{experiences.map((e,i)=>(<div key={i} className={`exp-tile reveal reveal-d${Math.min(i+1,5)}`}><div className="exp-tile-icon">{e.icon}</div><div className="exp-tile-name">{e.name}</div><div className="exp-tile-sub">{e.sub}</div></div>))}</div></section>
-      <section className="story"><div className="reveal"><div className="story-headline">For the people who build<em>before noon.</em></div><div className="story-line"/></div><div><p className="reveal reveal-d1">Espresso Co. is designed for people who move with intention. Morning thinkers. Fast starters. Creative builders. Quiet meetings. Daily rituals.</p><p className="reveal reveal-d2">Every pour, every surface, every detail is shaped to make coffee feel like part of a refined way of living.</p><p className="reveal reveal-d3" style={{fontFamily:'var(--font-display)',fontStyle:'italic',color:'var(--bronze-light)',fontSize:'18px'}}>Ritual meets refinement.</p></div></section>
-      <section className="products"><div className="section-label reveal">The Menu</div><h2 className="section-title reveal reveal-d1">Crafted categories.</h2><div className="products-grid">{products.map((p,i)=>(<div key={i} className={`product-card reveal reveal-d${Math.min(i+1,4)}`}><div className="product-card-bg" style={{background:p.bg}}/><div className="product-card-overlay"/><div className="product-card-content"><div className="product-card-label">{p.label}</div><div className="product-card-name">{p.name}</div><div className="product-card-desc">{p.desc}</div></div></div>))}</div></section>
-      <section className="life"><div className="section-label reveal">The Space</div><h2 className="section-title reveal reveal-d1">Built for quiet ambition.</h2><div className="life-scenes">{[{text:'Built for the morning pace.',bg:"url('/images/cups-on-wood.jpg') center/cover"},{text:'Built for quiet ambition.',bg:"url('/images/matte-cup.png') center/cover"},{text:'Built for the daily ritual.',bg:"url('/images/espresso-glass.png') center/cover"}].map((s,i)=>(<div key={i} className={`life-scene reveal reveal-d${i+1}`}><div className="life-scene-bg" style={{background:s.bg}}/><div className="life-scene-overlay"/><div className="life-scene-text">{s.text}</div></div>))}</div></section>
-      <section className="retail" id="beans"><div className="section-label reveal">Retail</div><h2 className="section-title reveal reveal-d1" style={{maxWidth:'none'}}>Bring the ritual home.</h2><p className="retail-body reveal reveal-d2">From whole bean bags to branded tumblers and gift boxes — the Espresso Co. experience extends beyond the café.</p><div className="retail-items reveal reveal-d3">{[{icon:'◉',name:'Bean Bags'},{icon:'◈',name:'Bottled Coffee'},{icon:'◇',name:'Mugs & Tumblers'},{icon:'◆',name:'Gift Boxes'},{icon:'◎',name:'Subscriptions'}].map((r,i)=>(<div key={i} className="retail-item"><div className="retail-item-icon">{r.icon}</div><div className="retail-item-name">{r.name}</div></div>))}</div><a href="#" className="btn-warm reveal reveal-d4"><span>Shop Now</span></a></section>
-      <section className="office"><div><div className="section-label reveal">For Teams</div><h2 className="office-title reveal reveal-d1">Coffee service for teams, sets, and elevated events.</h2><p className="office-body reveal reveal-d2">From office subscriptions to event catering and wholesale partnerships — Espresso Co. brings refined coffee service wherever your team builds.</p><a href="#" className="btn-warm reveal reveal-d3"><span>Request Coffee Service</span></a></div><div className="reveal reveal-d2" style={{position:'relative'}}><div style={{aspectRatio:'4/5',background:"linear-gradient(180deg,rgba(14,14,14,0.3) 0%,rgba(14,14,14,0.7) 100%),url('/images/espresso-machine.jpg') center/cover",border:'1px solid rgba(184,134,11,.06)',display:'flex',alignItems:'center',justifyContent:'center'}}><div style={{textAlign:'center'}}><div style={{fontFamily:'var(--font-display)',fontSize:'48px',fontWeight:300,color:'var(--bronze-light)',marginBottom:'8px'}}>EC</div><div style={{fontSize:'10px',letterSpacing:'0.3em',textTransform:'uppercase' as const,color:'var(--taupe)'}}>Office Service</div></div></div></div></section>
-      <section className="club" id="club"><div><div className="section-label reveal">Membership</div><h2 className="section-title reveal reveal-d1">Join the Coffee Club.</h2><div className="club-perks">{clubPerks.map((p,i)=>(<div key={i} className={`club-perk reveal reveal-d${i+2}`}><div className="club-perk-title">{p.title}</div><div className="club-perk-desc">{p.desc}</div></div>))}</div></div><div style={{display:'flex',flexDirection:'column',gap:'14px'}} className="reveal reveal-d2"><input className="club-input" type="text" placeholder="Full name"/><input className="club-input" type="email" placeholder="Email address"/><input className="club-input" type="tel" placeholder="Phone (for SMS)"/><a href="#" className="btn-warm" style={{textAlign:'center',justifyContent:'center'}}><span>Join the Club</span></a></div></section>
-      <footer><div><div className="footer-brand">Espresso <span>Co.</span></div><p className="footer-tagline">Brewed for the Pace of the City.<br/>A Casper Group brand.</p></div><div className="footer-col"><div className="footer-col-title">Order</div><a href="#">Menu</a><a href="#">Order Ahead</a><a href="#">Catering</a><a href="#">Office Coffee</a></div><div className="footer-col"><div className="footer-col-title">Discover</div><a href="#">Locations</a><a href="#">Coffee Club</a><a href="#">Beans & Retail</a><a href="#">About</a></div><div className="footer-col"><div className="footer-col-title">Connect</div><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">Wholesale</a><a href="#">Partnership</a></div></footer>
-      <div className="footer-bottom"><span>© 2026 Espresso Co. All rights reserved.</span><span style={{fontSize:'10px',letterSpacing:'0.2em',textTransform:'uppercase' as const}}>A <a href="#">Casper Group</a> Brand</span></div>
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: phase < 3 ? 10000 : -1,
+        background: C.dark, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        opacity: phase >= 3 ? 0 : 1, transition: 'opacity 0.8s cubic-bezier(0.16,1,0.3,1)',
+        pointerEvents: phase >= 3 ? 'none' : 'all'
+      }}>
+        <div style={{
+          width: phase >= 2 ? '100vw' : 'clamp(260px,36vw,440px)',
+          height: phase >= 2 ? '100vh' : 'clamp(180px,26vh,300px)',
+          overflow: 'hidden', transition: 'all 1s cubic-bezier(0.16,1,0.3,1)', position: 'relative'
+        }}>
+          <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.55) contrast(1.15) saturate(0.75)' }}><source src="/videos/hero.mp4" type="video/mp4" /></video>
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: phase >= 2 ? 0 : 1, transition: 'opacity 0.5s ease' }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ width: 2, height: phase >= 1 ? 40 : 0, background: `linear-gradient(180deg,transparent,${C.bronze})`, margin: '0 auto 18px', transition: 'height 1s cubic-bezier(0.16,1,0.3,1)', borderRadius: 1 }} />
+              <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 12, letterSpacing: '0.45em', textTransform: 'uppercase', color: C.taupe, opacity: phase >= 1 ? 1 : 0, transition: 'opacity 0.8s ease 0.4s' }}>Espresso Co.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section
+        onMouseMove={e => setMouse({ x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight })}
+        style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center' }}
+      >
+        <video autoPlay muted loop playsInline style={{
+          position: 'absolute', inset: '-5%', width: '110%', height: '110%', objectFit: 'cover',
+          filter: 'brightness(0.2) contrast(1.15) saturate(0.55)',
+          transform: `scale(1.02) translate(${(mouse.x - 0.5) * -8}px,${(mouse.y - 0.5) * -8}px)`,
+          transition: 'transform 0.3s ease'
+        }}><source src="/videos/hero.mp4" type="video/mp4" /></video>
+
+        <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg,${C.dark}00 0%,${C.dark}88 50%,${C.dark} 100%)` }} />
+        <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse at ${mouse.x * 100}% ${mouse.y * 100}%,${C.espressoGlow},transparent 50%)` }} />
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.04, pointerEvents: 'none', mixBlendMode: 'overlay', backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
+
+        <div style={{ position: 'relative', zIndex: 2, padding: '160px clamp(32px,8vw,100px) 120px', maxWidth: 1300, margin: '0 auto', width: '100%' }}>
+          <div style={{ opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(60px)', transition: 'all 1.4s cubic-bezier(0.16,1,0.3,1) 0.2s' }}>
+            <div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 28, display: 'flex', alignItems: 'center', gap: 14 }}>
+              <span style={{ width: 32, height: 1, background: C.bronze, display: 'inline-block' }} />
+              Espresso · Atmosphere · Refined Energy
+            </div>
+            <h1 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(56px,13vw,200px)', fontWeight: 300, lineHeight: 0.88, letterSpacing: '-0.04em', color: C.cream, margin: 0 }}>
+              <span style={{ display: 'block', opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(80px)', transition: 'all 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s' }}>Brewed for</span>
+              <span style={{ display: 'block', fontStyle: 'italic', opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(80px)', transition: 'all 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s' }}>the <em style={{ color: C.bronzeLight }}>pace</em></span>
+              <span style={{ display: 'block', opacity: phase >= 3 ? 1 : 0, transform: phase >= 3 ? 'translateY(0)' : 'translateY(80px)', transition: 'all 1.2s cubic-bezier(0.16,1,0.3,1) 0.6s' }}>of the city.</span>
+            </h1>
+            <div style={{ marginTop: 'clamp(28px,4vw,52px)', marginLeft: 'clamp(0px,8vw,120px)', maxWidth: 480 }}>
+              <p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 'clamp(14px,1.2vw,17px)', fontWeight: 300, lineHeight: 1.85, color: C.muted, marginBottom: 40 }}>Espresso, atmosphere, and refined energy for mornings, meetings, and moments in between.</p>
+              <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+                <button style={{ fontFamily: "'DM Sans',system-ui", fontSize: 10, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.dark, background: C.bronze, border: 'none', padding: '16px 44px', cursor: 'pointer', transition: 'all 0.4s cubic-bezier(0.16,1,0.3,1)' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = `0 12px 40px ${C.bronze}40` }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}>Order Ahead</button>
+                <button style={{ fontFamily: "'DM Sans',system-ui", fontSize: 10, fontWeight: 400, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.cream, background: 'transparent', border: `1px solid ${C.dim}`, padding: '16px 36px', cursor: 'pointer', transition: 'all 0.3s' }} onMouseEnter={e => { e.currentTarget.style.borderColor = C.bronze; e.currentTarget.style.color = C.bronzeLight }} onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(245,240,232,0.08)'; e.currentTarget.style.color = C.cream }}>View Menu</button>
+                <button style={{ fontFamily: "'DM Sans',system-ui", fontSize: 10, fontWeight: 400, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.cream, background: 'transparent', border: `1px solid ${C.dim}`, padding: '16px 36px', cursor: 'pointer', transition: 'all 0.3s' }} onMouseEnter={e => { e.currentTarget.style.borderColor = C.bronze; e.currentTarget.style.color = C.bronzeLight }} onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(245,240,232,0.08)'; e.currentTarget.style.color = C.cream }}>Find a Café</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
+  )
+}
+
+function Nav() {
+  const [s, setS] = useState(false)
+  useEffect(() => { const fn = () => setS(window.scrollY > 80); window.addEventListener('scroll', fn, { passive: true }); return () => window.removeEventListener('scroll', fn) }, [])
+  return (
+    <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999, padding: s ? '10px clamp(24px,6vw,80px)' : '24px clamp(24px,6vw,80px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: s ? `${C.base}f0` : 'transparent', backdropFilter: s ? 'blur(32px) saturate(1.3)' : 'none', borderBottom: s ? `1px solid ${C.border}` : 'none', transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)' }}>
+      <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 20, fontWeight: 400, color: C.cream, letterSpacing: '0.04em' }}>Espresso <span style={{ fontStyle: 'italic', fontWeight: 300, opacity: 0.6 }}>Co.</span></div>
+      <div style={{ display: 'flex', gap: 'clamp(14px,2.5vw,36px)', alignItems: 'center' }}>
+        {['Menu', 'Locations', 'Beans', 'Club'].map(n => (<a key={n} href={`#${n.toLowerCase()}`} className="nav-link-hide" style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.25em', textTransform: 'uppercase', color: C.muted, textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={e => (e.target as HTMLElement).style.color = C.cream} onMouseLeave={e => (e.target as HTMLElement).style.color = 'rgba(245,240,232,0.4)'}>{n}</a>))}
+        <button style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', color: C.dark, background: C.bronze, border: 'none', padding: '9px 24px', cursor: 'pointer' }}>Order Ahead</button>
+      </div>
+    </nav>
+  )
+}
+
+function Experience() {
+  return (
+    <section id="menu" style={{ padding: '120px clamp(32px,8vw,100px)', borderTop: `1px solid ${C.bronzeDim}`, background: C.base }}>
+      <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>The Experience</div>
+        <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 52 }}>Every pour, intentional.</h2></Rev>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 1, background: C.bronzeDim }}>
+        {experiences.map((e, i) => (
+          <Rev key={i} d={0.05 * i}>
+            <div style={{ background: C.base, padding: '44px 24px', textAlign: 'center', cursor: 'pointer', transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)', position: 'relative' }}
+              onMouseEnter={ev => ev.currentTarget.style.background = C.surface}
+              onMouseLeave={ev => ev.currentTarget.style.background = C.base}>
+              <div style={{ fontSize: 28, marginBottom: 18, opacity: 0.6 }}>{e.icon}</div>
+              <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 16, fontWeight: 500, letterSpacing: '0.05em', color: C.cream, marginBottom: 6 }}>{e.name}</div>
+              <div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 10, color: C.taupe, letterSpacing: '0.15em', textTransform: 'uppercase' }}>{e.sub}</div>
+            </div>
+          </Rev>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function Story() {
+  return (
+    <section style={{ padding: '160px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 100, alignItems: 'center', background: C.base }}>
+      <Rev><div>
+        <div style={{ width: 48, height: 1, background: C.bronze, marginBottom: 40 }} />
+        <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(40px,5.5vw,72px)', fontWeight: 300, lineHeight: 1.08, color: C.cream }}>For the people who build<br /><em style={{ fontWeight: 500, color: C.bronzeLight }}>before noon.</em></h2>
+      </div></Rev>
+      <div>
+        <Rev d={0.1}><p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 'clamp(15px,1.4vw,18px)', fontWeight: 300, lineHeight: 1.9, color: C.muted, marginBottom: 24 }}>Espresso Co. is designed for people who move with intention. Morning thinkers. Fast starters. Creative builders. Quiet meetings. Daily rituals.</p></Rev>
+        <Rev d={0.2}><p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 'clamp(15px,1.4vw,18px)', fontWeight: 300, lineHeight: 1.9, color: C.muted, marginBottom: 24 }}>Every pour, every surface, every detail is shaped to make coffee feel like part of a refined way of living.</p></Rev>
+        <Rev d={0.3}><p style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 18, fontStyle: 'italic', color: C.bronzeLight }}>Ritual meets refinement.</p></Rev>
+      </div>
+    </section>
+  )
+}
+
+function Products() {
+  return (
+    <section style={{ padding: '120px clamp(32px,8vw,100px)', background: C.dark }}>
+      <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>The Menu</div>
+        <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 52 }}>Crafted categories.</h2></Rev>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2 }}>
+        {products.map((p, i) => (
+          <Rev key={i} d={0.06 * i}>
+            <div style={{ position: 'relative', aspectRatio: '3/4', overflow: 'hidden', cursor: 'pointer', background: C.espresso }}
+              onMouseEnter={e => { const bg = e.currentTarget.querySelector('.prod-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1.06)' }}
+              onMouseLeave={e => { const bg = e.currentTarget.querySelector('.prod-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1)' }}>
+              <div className="prod-bg" style={{ position: 'absolute', inset: 0, background: p.bg, transition: 'transform 1.2s cubic-bezier(0.16,1,0.3,1)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,transparent 50%,rgba(14,14,14,0.85) 100%)' }} />
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 36 }}>
+                <div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, letterSpacing: '0.4em', textTransform: 'uppercase', color: C.bronze, marginBottom: 8 }}>{p.label}</div>
+                <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 24, fontWeight: 500, letterSpacing: '0.03em', color: C.cream, marginBottom: 8 }}>{p.name}</div>
+                <div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 12, fontWeight: 300, color: C.muted, lineHeight: 1.6 }}>{p.desc}</div>
+              </div>
+            </div>
+          </Rev>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function LifeScenes() {
+  const scenes = [
+    { text: 'Built for the morning pace.', bg: "url('/images/cups-on-wood.jpg') center/cover" },
+    { text: 'Built for quiet ambition.', bg: "url('/images/matte-cup.png') center/cover" },
+    { text: 'Built for the daily ritual.', bg: "url('/images/espresso-glass.png') center/cover" },
+  ]
+  return (
+    <section style={{ padding: '120px clamp(32px,8vw,100px)', background: C.base }}>
+      <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>The Space</div>
+        <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 52 }}>Built for quiet ambition.</h2></Rev>
+      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridTemplateRows: '350px 350px', gap: 2 }}>
+        {scenes.map((s, i) => (
+          <Rev key={i} d={0.06 * i}>
+            <div style={{ position: 'relative', overflow: 'hidden', height: '100%', gridRow: i === 0 ? '1/3' : undefined, cursor: 'pointer' }}
+              onMouseEnter={e => { const bg = e.currentTarget.querySelector('.scene-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1.04)' }}
+              onMouseLeave={e => { const bg = e.currentTarget.querySelector('.scene-bg') as HTMLElement; if (bg) bg.style.transform = 'scale(1)' }}>
+              <div className="scene-bg" style={{ position: 'absolute', inset: 0, background: s.bg, transition: 'transform 1.2s cubic-bezier(0.16,1,0.3,1)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,transparent 40%,rgba(14,14,14,0.6) 100%)' }} />
+              <div style={{ position: 'absolute', bottom: 28, left: 28, fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 16, fontWeight: 400, fontStyle: 'italic', color: 'rgba(245,240,232,0.6)' }}>{s.text}</div>
+            </div>
+          </Rev>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function Retail() {
+  return (
+    <section id="beans" style={{ padding: '120px clamp(32px,8vw,100px)', textAlign: 'center', borderTop: `1px solid ${C.border}`, background: C.dark }}>
+      <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>Retail</div>
+        <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 24 }}>Bring the ritual home.</h2>
+        <p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 'clamp(15px,1.4vw,18px)', fontWeight: 300, color: C.muted, maxWidth: 500, margin: '0 auto 52px', lineHeight: 1.85 }}>From whole bean bags to branded tumblers and gift boxes — the Espresso Co. experience extends beyond the café.</p></Rev>
+      <Rev d={0.1}><div style={{ display: 'flex', justifyContent: 'center', gap: 52, marginBottom: 52, flexWrap: 'wrap' }}>
+        {[{ icon: '◉', name: 'Bean Bags' }, { icon: '◈', name: 'Bottled Coffee' }, { icon: '◇', name: 'Mugs & Tumblers' }, { icon: '◆', name: 'Gift Boxes' }, { icon: '◎', name: 'Subscriptions' }].map((r, i) => (
+          <div key={i} style={{ textAlign: 'center', cursor: 'pointer' }}>
+            <div style={{ width: 64, height: 64, border: `1px solid ${C.bronzeDim}`, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', fontSize: 24, transition: 'all 0.4s cubic-bezier(0.16,1,0.3,1)', color: C.cream }}>{r.icon}</div>
+            <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 14, fontWeight: 500, color: C.cream }}>{r.name}</div>
+          </div>
+        ))}
+      </div></Rev>
+      <Rev d={0.2}><button style={{ fontFamily: "'DM Sans',system-ui", fontSize: 10, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.dark, background: C.bronze, border: 'none', padding: '16px 48px', cursor: 'pointer' }}>Shop Now</button></Rev>
+    </section>
+  )
+}
+
+function Office() {
+  return (
+    <section style={{ padding: '160px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', position: 'relative', background: C.base }}>
+      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 50% 50% at 70% 50%,${C.espressoGlow},transparent 70%)` }} />
+      <div style={{ position: 'relative' }}>
+        <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>For Teams</div>
+          <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 24 }}>Coffee service for teams, sets, and elevated events.</h2>
+          <p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 'clamp(15px,1.4vw,18px)', fontWeight: 300, color: C.muted, lineHeight: 1.85, marginBottom: 40 }}>From office subscriptions to event catering and wholesale partnerships — Espresso Co. brings refined coffee service wherever your team builds.</p>
+          <button style={{ fontFamily: "'DM Sans',system-ui", fontSize: 10, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.dark, background: C.bronze, border: 'none', padding: '16px 44px', cursor: 'pointer' }}>Request Coffee Service</button></Rev>
+      </div>
+      <Rev d={0.1}><div style={{ aspectRatio: '4/5', background: `linear-gradient(180deg,rgba(14,14,14,0.3),rgba(14,14,14,0.7)),url('/images/espresso-machine.jpg') center/cover`, border: `1px solid ${C.bronzeDim}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 48, fontWeight: 300, color: C.bronzeLight, marginBottom: 8 }}>EC</div>
+          <div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 10, letterSpacing: '0.3em', textTransform: 'uppercase', color: C.taupe }}>Office Service</div>
+        </div>
+      </div></Rev>
+    </section>
+  )
+}
+
+function Club() {
+  return (
+    <section id="club" style={{ padding: '120px clamp(32px,8vw,100px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', background: C.dark, borderTop: `1px solid ${C.border}` }}>
+      <div>
+        <Rev><div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 9, fontWeight: 500, letterSpacing: '0.55em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>Membership</div>
+          <h2 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, lineHeight: 1.05, color: C.cream, marginBottom: 36 }}>Join the Coffee Club.</h2></Rev>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+          {clubPerks.map((p, i) => (<Rev key={i} d={0.06 * i}><div style={{ padding: 24, border: `1px solid ${C.border}`, background: C.bronzeDim, transition: 'border-color 0.4s' }}>
+            <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 15, fontWeight: 600, color: C.bronzeLight, marginBottom: 6 }}>{p.title}</div>
+            <div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 12, fontWeight: 300, color: C.muted, lineHeight: 1.6 }}>{p.desc}</div>
+          </div></Rev>))}
+        </div>
+      </div>
+      <Rev d={0.1}><div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {['Full name', 'Email address', 'Phone (for SMS)'].map(ph => (
+          <input key={ph} type="text" placeholder={ph} style={{ padding: '18px 24px', background: 'rgba(255,255,255,0.02)', border: `1px solid ${C.border}`, color: C.cream, fontFamily: "'DM Sans',system-ui", fontSize: 14, outline: 'none', transition: 'border-color 0.3s' }} onFocus={e => e.currentTarget.style.borderColor = C.bronze} onBlur={e => e.currentTarget.style.borderColor = 'rgba(245,240,232,0.04)'} />
+        ))}
+        <button style={{ fontFamily: "'DM Sans',system-ui", fontSize: 10, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.dark, background: C.bronze, border: 'none', padding: '18px 44px', cursor: 'pointer', textAlign: 'center' }}>Join the Club</button>
+      </div></Rev>
+    </section>
+  )
+}
+
+function Footer() {
+  return (
+    <>
+      <footer style={{ background: C.dark, padding: '80px clamp(32px,8vw,100px) 40px', borderTop: `1px solid ${C.border}`, display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48 }}>
+        <div>
+          <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 28, fontWeight: 400, color: C.cream, letterSpacing: '0.04em', marginBottom: 16 }}>Espresso <span style={{ fontStyle: 'italic', fontWeight: 300, opacity: 0.6 }}>Co.</span></div>
+          <p style={{ fontFamily: "'DM Sans',system-ui", fontSize: 13, fontWeight: 300, color: C.muted, fontStyle: 'italic', lineHeight: 1.6 }}>Brewed for the Pace of the City.<br />A Casper Group brand.</p>
+        </div>
+        {[{ h: 'Order', l: ['Menu', 'Order Ahead', 'Catering', 'Office Coffee'] }, { h: 'Discover', l: ['Locations', 'Coffee Club', 'Beans & Retail', 'About'] }, { h: 'Connect', l: ['Instagram', 'TikTok', 'Wholesale', 'Partnership'] }].map(col => (
+          <div key={col.h}>
+            <div style={{ fontFamily: "'DM Sans',system-ui", fontSize: 8, fontWeight: 600, letterSpacing: '0.45em', textTransform: 'uppercase', color: C.bronze, marginBottom: 20 }}>{col.h}</div>
+            {col.l.map(item => (<a key={item} href="#" style={{ display: 'block', color: C.muted, textDecoration: 'none', fontFamily: "'DM Sans',system-ui", fontSize: 13, fontWeight: 300, marginBottom: 12, transition: 'color 0.3s' }} onMouseEnter={e => (e.target as HTMLElement).style.color = C.cream} onMouseLeave={e => (e.target as HTMLElement).style.color = 'rgba(245,240,232,0.4)'}>{item}</a>))}
+          </div>
+        ))}
+      </footer>
+      <div style={{ background: C.dark, padding: '32px clamp(32px,8vw,100px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: `1px solid ${C.border}`, fontFamily: "'DM Sans',system-ui", fontSize: 10, fontWeight: 300, color: 'rgba(245,240,232,0.15)' }}>
+        <span>© 2026 Espresso Co. All rights reserved.</span>
+        <span style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}>A Casper Group Brand</span>
+      </div>
+    </>
+  )
+}
+
+export default function EspressoV2() {
+  return (
+    <div style={{ background: C.base, overflowX: 'hidden' }}>
+      <style>{`@media(max-width:768px){.nav-link-hide{display:none}}`}</style>
+      <Nav />
+      <VideoIntroHero />
+      <Experience />
+      <Story />
+      <Products />
+      <LifeScenes />
+      <Retail />
+      <Office />
+      <Club />
+      <Footer />
+    </div>
   )
 }
